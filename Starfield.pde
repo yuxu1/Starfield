@@ -1,23 +1,74 @@
-//your code here
+Particle[] stars;
 void setup()
 {
-	//your code here
+  background(0);
+  size(500, 500);
+  stars=new Particle[200];
+  for (int i=0; i<199; i++) 
+  {
+    stars[i]=new NormalParticle();
+  }
+  stars[199]=new OddballParticle();
 }
 void draw()
 {
-	//your code here
+  background(0);
+  for (int i=0; i<200; i++) 
+  {
+    stars[i].move();
+    stars[i].show();
+  }
 }
-class NormalParticle
+class NormalParticle implements Particle
 {
-	//your code here
+  int myColor;
+  double myX, myY, mySpeed, myAngle;
+  NormalParticle()
+  {
+    myColor= color ((int)(Math.random()*255), (int)(Math.random()*255), (int)(Math.random()*255));
+    myX=250;
+    myY=250;
+    mySpeed= Math.random()*5;
+    myAngle=Math.PI*2*Math.random();
+  }
+  public void move()
+  {
+    myAngle+=0.01;
+    myX+=Math.cos(myAngle)*mySpeed;
+    myY+=Math.sin(myAngle)*mySpeed;  
+  }
+  public void show()
+  {
+    noStroke();
+    fill(myColor);
+    ellipse((int)myX, (int)myY, 10, 10);
+  }
 }
 interface Particle
 {
-	//your code here
+  public void move();
+  public void show();
 }
-class OddballParticle
+class OddballParticle implements Particle
 {
-	//your code here
+  double myX, myY, mySpeed, myAngle;
+  OddballParticle()
+  {
+    myX=250;
+    myY=250;
+    mySpeed=Math.random()*15;
+    myAngle=Math.PI*2*Math.random();
+  }
+  public void move()
+  {
+    myAngle+=0.05;
+    myX+=Math.cos(myAngle)*mySpeed;
+    myY+=Math.sin(myAngle)*mySpeed;  
+  }
+  public void show() 
+  {
+    noStroke();
+    fill(255);
+    ellipse((int)myX, (int)myY, 20, 20);
+  }
 }
-
-
